@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "MyLibreria.h"
 
 #define MAX_STR_LENGHT 20
 #define N_PAROLE 7
@@ -44,7 +45,7 @@ int main() {
 	char stringaB[MAX_STR_LENGHT];
 	FILE *fileA= fopen("listaA.txt", "r");
 	FILE *fileB= fopen("listaB.txt", "r");
-	FILE *fileOut=fopen("listaOut.txt", "a+");
+	FILE *fileOut=fopen("listaOut.txt", "a+");		//oppure directory di output al posto du "listaOut.txt"
 	/*
 	for(int i=0; i<N_PAROLE; i++){
 		fscanf(fileA, "%s\n", stringaA);
@@ -58,11 +59,12 @@ int main() {
 		strcpy(stringaFinale, "");
 	}
 	*/
-
-	for(int i=0; i<N_PAROLE; i++){
-		fscanf(fileA, "%s\n", stringaA);
-			for(int j=0; j<N_PAROLE; j++){
-			fscanf(fileB, "%s\n", stringaB);
+	int fineA=0;
+	int fineB=0;
+	while(fineA!=EOF){
+		fineA=fscanf(fileA, "%s\n", stringaA);
+			while(fineB!=EOF){
+			fineB=fscanf(fileB, "%s\n", stringaB);
 			strcat(stringaFinale, stringaA);
 			strcat(stringaFinale, stringaB);
 			printf("la stringa concatenata è: %s\n", stringaFinale);
@@ -71,6 +73,7 @@ int main() {
 			strcpy(stringaFinale, "");
 			}
 		rewind(fileB);
+		fineB=0;
 		strcpy(stringaA, "");
 	}
 	
